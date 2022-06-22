@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.Test;
 
+import com.gildedrose.item.Item;
+
 class GildedRoseTest {
 
 	@Test
@@ -112,5 +114,15 @@ class GildedRoseTest {
 		
 		app.updateQuality();
 		assertThat(0, equalTo(items[0].quality));
+	}
+	
+	@Test
+	void given_conjuredItemWithSellInMoreThanZero_when_updateQuality_then_decreaseQualityTwiceFastAsNormalItem() {
+		Item[] items = new Item[] { new Item("Conjured Mana Cake", 3, 6), new Item("Axe", 3, 6) };
+		GildedRose app = new GildedRose(items);
+		
+		app.updateQuality();
+		assertThat(4, equalTo(items[0].quality));
+		assertThat(5, equalTo(items[1].quality));
 	}
 }
